@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>SB Vets MMS</title>
+	<link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+	<div class="header">
+		<h1><a href="../index.html">SB Vets Memorial Management System</a></h1>
+	</div>
+	
+	<h2>View/Search Brick Location</h2>
+	
+	<form> 
+		<div class="search">
+			<div class="leftSearch">
+				<div class="filter">
+					<h3 class="searchHead">Search by:</h3>
+					
+					<label class="checkbox">
+						<input type="checkbox"> Available
+					</label>
+					
+					<label class="checkbox">
+						<input type="checkbox"> Claimed
+					</label>
+			
+				</div>
+				
+				<div class="filter">
+					<h3 class="searchHead">Search Location:</h3>
+					
+					<select class="input">
+						<option>Quadrant</option>
+					</select>
+					
+					<select class="input">
+						<option>Sector</option>
+					</select>
+					
+					<select class="input">
+						<option>Wall Cap Section</option>
+					</select>
+					
+				</div>
+			</div>
+			
+			<div class="rightSearch">
+				<div class="filter">
+					<h3 class="searchHead">Search by Name:</h3>
+					
+					<input class="input" placeholder="First Name">
+					
+					<p style="margin: 10px 0;">OR</p>
+					
+					<input class="input" placeholder="Last Name">
+				</div>
+			</div>
+		</div>
+	
+		<button type="submit" class="search-btn">SEARCH</button>
+		<button type="reset" class="search-btn">RESET</button>
+	</form>
+</body>
+</html>
