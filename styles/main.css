@@ -51,12 +51,13 @@ h2 {
 }
 
 .account {
-	width: 400px;
+	width: 48%;
 	margin: 20px auto;
 	padding: 12px 15px;
 	font-size: 20px;
 	border-radius: 10px;
 	border: 2px soid #2c2f5a;
+	box-sizing: border-box;
 }
 
 .login-btn, .update-btn, .search-btn{
@@ -130,4 +131,29 @@ h2 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.row {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 10px;
+}
+
+.create input {
+	margin: 5px 30px;
+	align-content: center;
+	width: 80%;
+}
+
+.row-check {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 10px;
+}
+
+.checkbox input{
+	flex: none;
+	width: 18px;
+	height: 18px;
+	margin-right: 5px;
 }
