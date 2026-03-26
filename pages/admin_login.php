@@ -58,7 +58,7 @@
 	<div class="login">
 		<h2>Administrative Log In</h2>
 		
-		<form method="post" action="login.php">
+		<form method="post" action="admin_login.php">
             <?php 
                 if ($errors) echo "<h2 class=\"warning\">Please fix the item(s) indicated.</h2>";
             	if ($errors['username']) echo "<h2 class=\"warning\">{$errors['username']}</h2>"; 
