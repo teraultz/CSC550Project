@@ -21,9 +21,9 @@
                 $errors['no_username'] = "That username wasn't found";
             else { // email found, validate password
                 $result = $stmt->fetch(); //convert the result object pointer to an associative array 
-                $pw_hash=$result['pw'];
+                $pw=$result['Password'];
                 $role=$result['Role'];
-                if (password_verify($password, $pw_hash )) { //passwords match
+                if (password_verify($password, $pw )) { //passwords match
                     session_start();
                     if ($role == "Admin"){
                         header("Location: admin_home.html");	
