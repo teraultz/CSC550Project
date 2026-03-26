@@ -26,11 +26,11 @@
                 if (password_verify($password, $pw_hash )) { //passwords match
                     session_start();
                     if ($role == "Admin"){
-                        header("Location: admin_home.php");	
+                        header("Location: admin_home.html");	
                         exit;
                     }
                     if ($role == "Data Entry"){
-                        header("Location: data_entry_home.php");	
+                        header("Location: data_entry_home.html");	
                         exit;
                     }
                 }
