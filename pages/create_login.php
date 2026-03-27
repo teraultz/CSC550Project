@@ -2,6 +2,7 @@
 require_once '../pdo_connect.php';
 
 $error = "";
+$success = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST["username"]);
@@ -13,6 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->rowCount() > 0) {
             $error = "Username Already Exists";
         }
+		else {
+    $password = trim($_POST["password"]);
+
+    // Insert new account (default role = Data Entry)
+    $insert = $dbc->prepare("INSERT INTO Accounts (Username, Password, Role) VALUES (:username, :password, 'Data Entry')");
+    $insert->execute([
+        'username' => $username,
+        'password' => $password
+    ]);
+
+    $success = "Login credentials accepted. Data Entry account created.";
+}
     }
 }
 ?>
@@ -35,16 +48,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<?php if (!empty($error)) : ?>
     	<p style="color:red;"><?php echo $error; ?></p>
 		<?php endif; ?>
+
+		<?php if (!empty($success)) : ?>
+    <p style="color:green;"><?php echo $success; ?></p>
+<?php endif; ?>
 		
 		<!-- Kenneth added method="POST" action="" to form, commented out the unneeded sections and turned this into a php doc -->
 		<form method="POST" action="">
 			<div class="row">
-				<input type="text" name="first_name" class="account" placeholder="First Name: ">
+				<!-- <input type="text" name="first_name" class="account" placeholder="First Name: "> -->
 				<input type="text" name="username" class="account" placeholder="Username: ">
 			</div>
 			
 			<div class="row">
-				<input type="text" name="last_name" class="account" placeholder="Last Name: ">
+				<!--< input type="text" name="last_name" class="account" placeholder="Last Name: "> -->
 				<input type="password" name="password" class="account" placeholder="Password: ">
 			</div>
 			
