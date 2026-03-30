@@ -36,7 +36,7 @@
     $checkStmt->execute();
 
     if ($checkStmt->rowCount() > 0) {
-        $errors['duplicate'] = 'That brick column and row are already taken.';
+        $errors['duplicate'] = 'That brick is already taken.';
     }
 }
 
