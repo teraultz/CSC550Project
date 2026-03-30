@@ -1,5 +1,7 @@
 <?php
     if (isset($_POST['send'])){
+
+    
         $errors = array();
         $success = "";
 
@@ -21,6 +23,22 @@
         }
         $search = substr($name, 0, 3);
         $gridReference = $column . $row;
+
+        //Adding error checking of duplicate bricks KM
+
+        if (!$errors) {
+    require_once ('../pdo_connect.php');
+
+    $checkSql = "SELECT 1 FROM Bricks WHERE ColumnVal = ? AND RowVal = ?";
+    $checkStmt = $dbc->prepare($checkSql);
+    $checkStmt->bindParam(1, $column);
+    $checkStmt->bindParam(2, $row);
+    $checkStmt->execute();
+
+    if ($checkStmt->rowCount() > 0) {
+        $errors['duplicate'] = 'That brick column and row are already taken.';
+    }
+}
 
         if (!$errors){
             require_once ('../pdo_connect.php');
@@ -58,7 +76,11 @@
                 if ($errors['row']) echo "<h2 class=\"warning\">{$errors['row']}</h2>"; 
                 if ($errors['location']) echo "<h2 class=\"warning\">{$errors['location']}</h2>";
                 if ($errors['name']) echo "<h2 class=\"warning\">{$errors['name']}</h2>"; 
-                echo $success; 
+                //Making Success text green KM
+                if (!empty($errors['duplicate'])) echo "<h2 class=\"warning\">{$errors['duplicate']}</h2>";
+                if (!empty($success)) {
+    echo "<p style='color: green;'>$success</p>";
+} 
             ?>
             <div class="addBrick">
                 <h3 class="updateHead">Brick Location:</h3>
