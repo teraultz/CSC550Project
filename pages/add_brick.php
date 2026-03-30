@@ -71,17 +71,17 @@
 	
 	<div class="add">
         <form method="post" action="add_brick.php">
-            <?php
-                if ($errors['column']) echo "<h2 class=\"warning\">{$errors['column']}</h2>"; 
-                if ($errors['row']) echo "<h2 class=\"warning\">{$errors['row']}</h2>"; 
-                if ($errors['location']) echo "<h2 class=\"warning\">{$errors['location']}</h2>";
-                if ($errors['name']) echo "<h2 class=\"warning\">{$errors['name']}</h2>"; 
-                //Making Success text green KM
-                if (!empty($errors['duplicate'])) echo "<h2 class=\"warning\">{$errors['duplicate']}</h2>";
-                if (!empty($success)) {
-    echo "<p style='color: green;'>$success</p>";
-} 
-            ?>
+            <?php //Doing error and success handling
+    if ($errors['column']) echo "<p style='color: red;'>{$errors['column']}</p>"; 
+    if ($errors['row']) echo "<p style='color: red;'>{$errors['row']}</p>"; 
+    if ($errors['location']) echo "<p style='color: red;'>{$errors['location']}</p>";
+    if ($errors['name']) echo "<p style='color: red;'>{$errors['name']}</p>"; 
+    if (!empty($errors['duplicate'])) echo "<p style='color: red;'>{$errors['duplicate']}</p>";
+
+    if (!empty($success)) {
+        echo "<p style='color: green;'>$success</p>";
+    } 
+?>
             <div class="addBrick">
                 <h3 class="updateHead">Brick Location:</h3>
                 
