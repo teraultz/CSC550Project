@@ -56,12 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<!-- Kenneth added method="POST" action="" to form, commented out the unneeded sections and turned this into a php doc -->
 		<form method="POST" action="">
 			<div class="row">
-				<!-- <input type="text" name="first_name" class="account" placeholder="First Name: "> -->
 				<input type="text" name="username" class="account" placeholder="Username: ">
 			</div>
-			
+			<br> <!--Added br to separate-->
 			<div class="row">
-				<!--< input type="text" name="last_name" class="account" placeholder="Last Name: "> -->
 				<input type="password" name="password" class="account" placeholder="Password: ">
 			</div>
 			
@@ -69,24 +67,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<label class="checkbox">
 					<input type="checkbox"> Admin
 				</label>
-
-			<!--	<label>
-					<input type="text" class="input" placeholder="UNCW ID: " />
-				</label>
-			-->
-		<form method="POST" action="">	
-			</div>
-				
-			<div class="row check">
 				<label class="checkbox">
 					<input type="checkbox"> Data Entry
 				</label>
+
+				<form method="POST" action="">	
+			</div>		
+
+			<form method="POST" action="">		</label>
 			
-			<!--	<label>
-				  <input type="text" class="input" placeholder="Employee ID: ">
-		-->
-		<form method="POST" action="">		</label>
-			</div>	
 				
 				
 			<button type="submit" class="login-btn">Create</button>
