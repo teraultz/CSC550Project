@@ -69,7 +69,7 @@
 			<br>
 			<input name="password" id="pw" type="password" class="account" placeholder="Password: ">
 			<br>
-			<input name="send" type="submit" value="Login">
+			<input name="send" type="submit" value="Login" class="login-btn"> 							<!--Fixed submit class to be same style-->
 		</form>
 	
 	</div>
