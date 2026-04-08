@@ -60,6 +60,16 @@ h2 {
 	box-sizing: border-box;
 }
 
+.loginaccount {
+	width: 48%;
+	margin: 20px auto;
+	padding: 12px 15px;
+	font-size: 20px;
+	border-radius: 10px;
+	border: 2px soid #2c2f5a;
+	box-sizing: border-box;
+}
+
 .login-btn, .update-btn, .search-btn{
 	margin: 30px;
 	padding: 12px 40px;
@@ -140,15 +150,23 @@ h2 {
 }
 
 .create input {
-	margin: 5px 30px;
+	margin: 5px auto;
 	align-content: center;
-	width: 80%;
+	width: 50%;
+	gap: 30px;
 }
 
 .row-check {
 	display: flex;
-	gap: 15px;
-	margin-bottom: 10px;
+	justify-content: center;
+	align-items: center;
+	gap: 40px;
+}
+
+.checkbox {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
 .checkbox input{
@@ -156,4 +174,46 @@ h2 {
 	width: 18px;
 	height: 18px;
 	margin-right: 5px;
+}
+
+form > :nth-last-child(2), form > :last-child {
+	display: inline-block;
+	gap: 50px;
+}
+
+.addBrick {
+	display: inline-block;
+	gap: 50px;
+	vertical-align: top;
+}
+
+.addBrick .update-btn {
+	display: block;
+	margin: 25px auto 0 auto;
+}
+
+.power_link {
+	margin: 20px auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	width: 400px;
+	height: 195px;
+	padding: 15px;
+	border: 2px solid black;
+}
+
+.power-BI {
+	width: 80%;
+	height: auto;
+	cursor: pointer;
+}
+
+.foundBrick {
+	align-items: center;
+	text-align: left;
+	display: flex;
+	margin: 0 auto;
+	width: fit-content;
 }
