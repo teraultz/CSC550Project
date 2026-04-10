@@ -41,6 +41,31 @@
 			echo "<p style='color:green;'>$success</p>";
 		}
 	}
+
+    if (isset($_POST['send2'])){
+        $errors2 = array();
+    	$success2 = "";
+
+        $gridref= filter_var(trim($_POST['gridref']), FILTER_SANITIZE_STRING);
+        if (empty($gridref)) {
+			$errors2['gridref'] = "Grid reference is required.";
+		}
+        $name= filter_var(trim($_POST['name']), FILTER_SANITIZE_STRING);
+        if (empty($name)) {
+			$errors2['name'] = "A name is required.";
+		}
+
+        if (!$errors2){
+            require_once('../pdo_connect.php');
+            $updateSql = "UPDATE Bricks SET Name = ? WHERE GridReference = ?";
+			$updateStmt = $dbc->prepare($updateSql);
+			$updateStmt->bindParam(1, $name);
+            $updateStmt->bindParam(2, $gridref);
+			$updateStmt->execute();
+
+            $success2 = "Brick updated successfully.";
+        }
+    }
 ?>
 <head>
 	<meta charset="utf-8">
@@ -66,16 +91,6 @@
 	<div class="update">
 		
 		<div class="card">
-			<h3 class="updateHead">Update Location:</h3>
-			
-			<p><strong>Brick to Change:</strong></p>
-			<input class="input" placeholder="Search for Brick">
-			
-			<p><strong>New Location:</strong></p>
-			<input class="input" placeholder="Search for Location">
-			
-			<button class="update-btn">SUBMIT</button>
-
 			<div class="divider"></div>
 			<form method="post" id="deleteForm">
 				<h3 class="deleteHead">Delete Location</h3>
@@ -86,28 +101,25 @@
 				<button class="update-btn" name="send">SUBMIT</button>
 			</form>
 		</div>
-		
+
 		<div class="card">
-			<h3 class="updateHead">Update Name:</h3>
-			
-			<p><strong>Search Name:</strong></p>
-			<input class="input" placeholder="Search for Name">
-			
-			<p style="margin: 10px 0;">OR</p>
-			
-			<p><strong>Search Brick:</strong></p>
-			<input class="input" placeholder="Search for Brick">
-			
-			<div class="divider"></div>
-			
-			<p><strong>Updated Name:</strong></p>
-			<input class="input" placeholder="First Name:">
-			
-			<br><br>
-			
-			<input class="input" placeholder="Last Name:">
-			
-			<button class="update-btn">SUBMIT</button>
+            <?php 
+                if (!empty($errors2['gridref'])) echo "<p style='color: red;'>{$errors2['gridref']}</p>";
+                if (!empty($errors2['name'])) echo "<p style='color: red;'>{$errors2['name']}</p>"; 
+            ?>
+            <form method="post">
+                <h3 class="updateHead">Update Name:</h3>
+                
+                <p><strong>Brick Grid Reference:</strong></p>
+                <input class="input" name="gridref" placeholder="Grid Reference">
+                
+                <div class="divider"></div>
+                
+                <p><strong>Updated Name:</strong></p>
+                <input class="input" name="name" placeholder="Name">
+                
+                <button class="update-btn" name="send2">SUBMIT</button>
+            </form>
 		</div>
 	</div>
 </body>
