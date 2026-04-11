@@ -71,10 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<input type="checkbox"> Data Entry
 				</label>
 
-				<form method="POST" action="">	
+				<!--<form method="POST" action="">	can this be outside the div because it pushes the checkboxes?-->
 			</div>		
 
-			<form method="POST" action="">		</label>
+			<!--<form method="POST" action="">		</label> -->
 			
 				
 				
