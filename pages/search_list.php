@@ -1,6 +1,8 @@
 <?php
     if (isset($_POST['send'])){
         $errors = array();
+		$result = [];
+		$result2 = null;	
 		require_once ('../pdo_connect.php');
 
         $gridref= filter_var(trim($_POST['gridref']), FILTER_SANITIZE_STRING);
@@ -17,7 +19,7 @@
             $stmt = $dbc->prepare($sql);
             $stmt->bindParam(1, $gridref);
             $stmt->execute();
-            $result = $stmt->fetch();
+            $result2 = $stmt->fetch();
         }
         if (empty($errors) && !empty($name)){
 			$namelike = "%$name%";
@@ -80,7 +82,9 @@
 			<p>
                 The brick you searched for is: 
                 <?php 
-					if (!empty($result)) {
+					if (!empty($result2)) {
+						echo "<p>{$result2['Name']} {$result2['GridReference']} {$result2['Location']}</p>";
+					} elseif (!empty($result)) {
 						foreach ($result as $row) {
 							echo "<p>{$row['Name']} {$row['GridReference']} {$row['Location']}</p>";
 						}
