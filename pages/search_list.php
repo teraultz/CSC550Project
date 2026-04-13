@@ -1,6 +1,7 @@
 <?php
     if (isset($_POST['send'])){
         $errors = array();
+		require_once ('../pdo_connect.php');
 
         $gridref= filter_var(trim($_POST['gridref']), FILTER_SANITIZE_STRING);
         $name= filter_var(trim($_POST['name']), FILTER_SANITIZE_STRING);
@@ -10,17 +11,17 @@
         if (!empty($name) and !empty($gridref)){
             $errors['bothfull'] = 'You need only provide the name or grid reference.';
         }
-        while (!$errors and !empty($gridref)){
-            require_once ('../pdo_connect.php');
+        if (empty($errors) && !empty($gridref)){
+            #require_once ('../pdo_connect.php');
             $sql = "SELECT * FROM Bricks WHERE GridReference = ?";
             $stmt = $dbc->prepare($sql);
             $stmt->bindParam(1, $gridref);
             $stmt->execute();
             $result = $stmt->fetch();
         }
-        while (!$errors and !empty($name)){
+        if (empty($errors) && !empty($name)){
 			$namelike = "%$name%";
-            require_once ('../pdo_connect.php');
+            #require_once ('../pdo_connect.php');
             $sql = "SELECT * FROM Bricks WHERE Name LIKE ?";
             $stmt = $dbc->prepare($sql);
             $stmt->bindParam(1, $namelike);
@@ -78,7 +79,7 @@
 		<div class="filter foundBrick">
 			<p>
                 The brick you searched for is: 
-                <?php if (!empty($result)) {echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>"}?>
+                <?php if (!empty($result)) {echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>";}?>
             </p>
 		</div>
 		
