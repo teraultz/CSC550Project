@@ -19,7 +19,7 @@
             $result = $stmt->fetch();
         }
         while (!$errors and !empty($name)){
-			$namelike = "%$name%"
+			$namelike = "%$name%";
             require_once ('../pdo_connect.php');
             $sql = "SELECT * FROM Bricks WHERE Name LIKE ?";
             $stmt = $dbc->prepare($sql);
@@ -78,7 +78,7 @@
 		<div class="filter foundBrick">
 			<p>
                 The brick you searched for is: 
-                <?php echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>"?>
+                <?php if (!empty($result)) {echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>"}?>
             </p>
 		</div>
 		
