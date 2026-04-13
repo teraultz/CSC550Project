@@ -26,7 +26,7 @@
             $stmt = $dbc->prepare($sql);
             $stmt->bindParam(1, $namelike);
             $stmt->execute();
-            $result = $stmt->fetch();
+            $result = $stmt->fetchAll();
         }
     }
 ?>
@@ -79,7 +79,16 @@
 		<div class="filter foundBrick">
 			<p>
                 The brick you searched for is: 
-                <?php if (!empty($result)) {echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>";}?>
+                <?php 
+					if (!empty($result)) {
+						foreach ($results as $row) {
+							echo "<p>{$row['Name']} {$row['GridReference']} {$row['Location']}</p>";
+						} else {
+							echo "<p>No results found.</p>";
+						}
+						#echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>";
+					}
+				?>
             </p>
 		</div>
 		
