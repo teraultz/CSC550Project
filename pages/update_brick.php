@@ -91,6 +91,19 @@
 	<div class="update">
 		
 		<div class="card">
+			<!-- I don't know how this top portion got deleted -->
+			<h3 class="updateHead">Update Location:</h3>
+			
+			<p><strong>Brick to Change:</strong></p>
+			<input class="input" placeholder="Search for Brick">
+			
+			<p><strong>New Location:</strong></p>
+			<input class="input" placeholder="Search for Location">
+			
+			<button class="update-btn">SUBMIT</button>
+
+
+			
 			<div class="divider"></div>
 			<form method="post" id="deleteForm">
 				<h3 class="deleteHead">Delete Location</h3>
