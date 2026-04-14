@@ -55,15 +55,28 @@
 			$errors2['name'] = "A name is required.";
 		}
 
-        if (!$errors2){
+        if (!$errors2 && empty($errors2['notclaimed'])){
             require_once('../pdo_connect.php');
+			// Check if brick exists AND has a name by KM
+		$checkSql = "SELECT Name FROM Bricks WHERE GridReference = ?";
+		$checkStmt = $dbc->prepare($checkSql);
+		$checkStmt->bindParam(1, $gridref);
+		$checkStmt->execute();
+
+		$result = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+		if (!$result || empty($result['Name'])) {
+  		  $errors2['notclaimed'] = "Brick Name Not Claimed";
+}
+
+
             $updateSql = "UPDATE Bricks SET Name = ? WHERE GridReference = ?";
 			$updateStmt = $dbc->prepare($updateSql);
 			$updateStmt->bindParam(1, $name);
             $updateStmt->bindParam(2, $gridref);
 			$updateStmt->execute();
 
-            $success2 = "Brick updated successfully.";
+            $success2 = "Entry Updated.";
         }
     }
 ?>
@@ -107,6 +120,7 @@
             <?php 
                 if (!empty($errors2['gridref'])) echo "<p style='color: red;'>{$errors2['gridref']}</p>";
                 if (!empty($errors2['name'])) echo "<p style='color: red;'>{$errors2['name']}</p>"; 
+				if (!empty($errors2['notclaimed'])) echo "<p style='color: red;'>{$errors2['notclaimed']}</p>";
             ?>
             <form method="post">
                 <h3 class="updateHead">Update Name:</h3>
