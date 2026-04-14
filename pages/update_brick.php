@@ -63,14 +63,17 @@
 }
 
 
-            $updateSql = "UPDATE Bricks SET Name = ? WHERE GridReference = ?";
-			$updateStmt = $dbc->prepare($updateSql);
-			$updateStmt->bindParam(1, $name);
-            $updateStmt->bindParam(2, $gridref);
-			$updateStmt->execute();
+          $search = substr($name, 0, 3);
 
-            $success2 = "Entry Updated";
-        }
+$updateSql = "UPDATE Bricks SET Name = ?, Search = ? WHERE GridReference = ?";
+$updateStmt = $dbc->prepare($updateSql);
+$updateStmt->bindParam(1, $name);
+$updateStmt->bindParam(2, $search);
+$updateStmt->bindParam(3, $gridref);
+$updateStmt->execute();
+
+$success2 = "Entry Updated";
+        
     }
 ?>
 <head>
