@@ -3,6 +3,7 @@
         $errors = array();
 		$result = [];
 		$result2 = null;	
+		$searchError = "";
 		require_once ('../pdo_connect.php');
 
         $gridref= filter_var(trim($_POST['gridref']), FILTER_SANITIZE_STRING);
@@ -48,7 +49,9 @@
 	<h2>View/Search Brick Location</h2>
     <?php
         if (!empty($errors['bothempty'])) echo "<p style='color: red;'>{$errors['bothempty']}</p>";
-        if (!empty($errors['bothfull'])) echo "<p style='color: red;'>{$errors['bothfull']}</p>";
+        if (!empty($errors['bothfull'])) echo "<p style='color: red;'>{$errors['bothfull']}</p>";		
+    	if (!empty($searchError)) echo "<p style='color: red;'>$searchError</p>";
+
     ?>
 	
 	<form method="post" action="search_list.php"> 
@@ -90,8 +93,8 @@
 						}
 						#echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>";
 					} else {
-						echo "<p>No results found.</p>";
-					}
+   						 $searchError = "Username Does Not Exist";
+							}
 				?>
             </p>
 		</div>
