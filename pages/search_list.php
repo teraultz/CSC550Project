@@ -3,6 +3,7 @@
     $result = [];
     $result2 = null;
     $searchError = "";
+    $searchSuccess = false;
 
     if (isset($_POST['send'])){
         require_once ('../pdo_connect.php');
@@ -35,6 +36,10 @@
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        if (empty($errors) && ( !empty($result2) || !empty($result) )) {
+            $searchSuccess = true;
+        }
+
         if (empty($errors) && empty($result2) && empty($result)) {
             $searchError = "Username Does Not Exist";
         }
@@ -54,12 +59,7 @@
 	</div>
 	
 	<h2>View/Search Brick Location</h2>
-    <?php
-        if (!empty($errors['bothempty'])) echo "<p style='color: red;'>{$errors['bothempty']}</p>";
-        if (!empty($errors['bothfull'])) echo "<p style='color: red;'>{$errors['bothfull']}</p>";		
-    	if (!empty($searchError)) echo "<p style='color: red;'>$searchError</p>";
-
-    ?>
+    
 	
 	<form method="post" action="search_list.php"> 
 		<div class="search">
@@ -88,23 +88,32 @@
 			</div>
 		</div>
 	
-		<div class="filter foundBrick">
-    <?php if (!empty($result2) || !empty($result)) : ?>
-        <p>The brick you searched for is:</p>
-        <?php 
-            if (!empty($result2)) {
-                echo "<p>{$result2['Name']} {$result2['GridReference']} {$result2['Location']}</p>";
-            } elseif (!empty($result)) {
-                foreach ($result as $row) {
-                    echo "<p>{$row['Name']} {$row['GridReference']} {$row['Location']}</p>";
+		<?php if (isset($_POST['send'])) : ?>
+    <div class="filter foundBrick">
+        <?php
+            if (!empty($errors['bothempty'])) {
+                echo "<p style='color: red;'>".$errors['bothempty']."</p>";
+            } elseif (!empty($errors['bothfull'])) {
+                echo "<p style='color: red;'>".$errors['bothfull']."</p>";
+            } elseif (!empty($searchError)) {
+                echo "<p style='color: red;'>".$searchError."</p>";
+            } elseif ($searchSuccess) {
+                echo "<p style='color: green;'>The brick you searched for is:</p>";
+
+                if (!empty($result2)) {
+                    echo "<p style='color: green;'>{$result2['Name']} {$result2['GridReference']} {$result2['Location']}</p>";
+                } elseif (!empty($result)) {
+                    foreach ($result as $row) {
+                        echo "<p style='color: green;'>{$row['Name']} {$row['GridReference']} {$row['Location']}</p>";
+                    }
                 }
             }
         ?>
-    <?php endif; ?>
-</div>
+    </div>
+<?php endif; ?>
 		
 		<button type="submit" name="send" class="search-btn">SEARCH</button>
-		<button type="reset" class="search-btn">RESET</button>
+		<button type="button" class="search-btn" onclick="window.location.href='search_list.php'">RESET</button>
 	</form>
 </body>
 </html>
