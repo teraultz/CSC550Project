@@ -73,7 +73,7 @@ $updateStmt->bindParam(3, $gridref);
 $updateStmt->execute();
 
 $success2 = "Entry Updated";
-        
+        }
     }
 ?>
 <head>
