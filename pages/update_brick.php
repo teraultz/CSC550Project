@@ -1,46 +1,39 @@
 <?php
 	if (isset($_POST['send'])){
 
+    $errors = array();
+    $success = "";
 
-		$errors = array();
-    	$success = "";
+    $gridReference = trim($_POST['gridReference']);
 
-		$gridReference = trim($_POST['gridReference']);
+    if (empty($gridReference)) {
+        $errors['gridReference'] = "Brick reference is required.";
+    }
 
-		if (empty($gridReference)) {
-			$errors['gridReference'] = "Brick reference is required.";
-		}
-	
-		if (!$errors) {
-			require_once('../pdo_connect.php');
-			$checkSql = "SELECT 1 FROM Bricks WHERE GridReference = ?";
-			$checkStmt = $dbc->prepare($checkSql);
-			$checkStmt->bindParam(1, $gridReference);
-			$checkStmt->execute();
-	
-			if ($checkStmt->rowCount() == 0) {
-				$errors['notfound'] = "Brick not found.";
-			}
-		}
+    if (!$errors) {
+        require_once('../pdo_connect.php');
 
-		if (!$errors) {
-			$deleteSql = "DELETE FROM Bricks WHERE GridReference = ?";
-			$deleteStmt = $dbc->prepare($deleteSql);
-			$deleteStmt->bindParam(1, $gridReference);
-			$deleteStmt->execute();
-	
-			$success = "Brick deleted successfully.";
-		}
-		if (!empty($errors)) {
-			foreach ($errors as $error) {
-				echo "<p style='color:red;'>$error</p>";
-			}
-		}
-		
-		if (!empty($success)) {
-			echo "<p style='color:green;'>$success</p>";
-		}
-	}
+        $checkSql = "SELECT Name FROM Bricks WHERE GridReference = ?";
+        $checkStmt = $dbc->prepare($checkSql);
+        $checkStmt->bindParam(1, $gridReference);
+        $checkStmt->execute();
+
+        $result = $checkStmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$result || empty($result['Name'])) {
+            $errors['notclaimed'] = "Brick Name Not Claimed.";
+        }
+    }
+
+    if (!$errors) {
+        $deleteSql = "DELETE FROM Bricks WHERE GridReference = ?";
+        $deleteStmt = $dbc->prepare($deleteSql);
+        $deleteStmt->bindParam(1, $gridReference);
+        $deleteStmt->execute();
+
+        $success = "Entry Deleted.";
+    }
+}
 
     if (isset($_POST['send2'])){
         $errors2 = array();
@@ -76,7 +69,7 @@
             $updateStmt->bindParam(2, $gridref);
 			$updateStmt->execute();
 
-            $success2 = "Entry Updated.";
+            $success2 = "Entry Updated";
         }
     }
 ?>
@@ -106,6 +99,11 @@
 		<div class="card">
 			
 			<div class="divider"></div>
+			<?php //adding error and success KM
+    if (!empty($errors['gridReference'])) echo "<p style='color: red;'>{$errors['gridReference']}</p>";
+    if (!empty($errors['notclaimed'])) echo "<p style='color: red;'>{$errors['notclaimed']}</p>";
+    if (!empty($success)) echo "<p style='color: green;'>{$success}</p>";
+?>
 			<form method="post" id="deleteForm">
 				<h3 class="deleteHead">Delete Location</h3>
 
@@ -121,6 +119,7 @@
                 if (!empty($errors2['gridref'])) echo "<p style='color: red;'>{$errors2['gridref']}</p>";
                 if (!empty($errors2['name'])) echo "<p style='color: red;'>{$errors2['name']}</p>"; 
 				if (!empty($errors2['notclaimed'])) echo "<p style='color: red;'>{$errors2['notclaimed']}</p>";
+				if (!empty($success2)) echo "<p style='color: green;'>{$success2}</p>";
             ?>
             <form method="post">
                 <h3 class="updateHead">Update Name:</h3>
