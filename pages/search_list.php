@@ -1,9 +1,10 @@
 <?php
-    if (isset($_POST['send'])){
-        $errors = array();
+		$errors = array();
 		$result = [];
 		$result2 = null;	
 		$searchError = "";
+    if (isset($_POST['send'])){
+        
 		require_once ('../pdo_connect.php');
 
         $gridref= filter_var(trim($_POST['gridref']), FILTER_SANITIZE_STRING);
@@ -30,6 +31,9 @@
             $stmt->bindParam(1, $namelike);
             $stmt->execute();
             $result = $stmt->fetchAll();
+        }
+		if (empty($errors) && empty($result2) && empty($result)) {
+            $searchError = "Username Does Not Exist";
         }
     }
 ?>
@@ -82,8 +86,7 @@
 		</div>
 	
 		<div class="filter foundBrick">
-			<p>
-                The brick you searched for is: 
+			<p>The brick you searched for is: </p>
                 <?php 
 					if (!empty($result2)) {
 						echo "<p>{$result2['Name']} {$result2['GridReference']} {$result2['Location']}</p>";
@@ -92,11 +95,9 @@
 							echo "<p>{$row['Name']} {$row['GridReference']} {$row['Location']}</p>";
 						}
 						#echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>";
-					} else {
-   						 $searchError = "Username Does Not Exist";
-							}
+					} 
 				?>
-            </p>
+            
 		</div>
 		
 		<button type="submit" name="send" class="search-btn">SEARCH</button>
