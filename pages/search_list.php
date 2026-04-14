@@ -1,38 +1,41 @@
 <?php
-		$errors = array();
-		$result = [];
-		$result2 = null;	
-		$searchError = "";
-    if (isset($_POST['send'])){
-        
-		require_once ('../pdo_connect.php');
+    $errors = array();
+    $result = [];
+    $result2 = null;
+    $searchError = "";
 
-        $gridref= filter_var(trim($_POST['gridref']), FILTER_SANITIZE_STRING);
-        $name= filter_var(trim($_POST['name']), FILTER_SANITIZE_STRING);
-	    if (empty($name) and (empty($gridref))){
+    if (isset($_POST['send'])){
+        require_once ('../pdo_connect.php');
+
+        $gridref = trim($_POST['gridref']);
+        $name = trim($_POST['name']);
+
+        if (empty($name) && empty($gridref)){
             $errors['bothempty'] = 'You need to provide either a name or grid reference.';
         }
-        if (!empty($name) and !empty($gridref)){
+
+        if (!empty($name) && !empty($gridref)){
             $errors['bothfull'] = 'You need only provide the name or grid reference.';
         }
+
         if (empty($errors) && !empty($gridref)){
-            #require_once ('../pdo_connect.php');
             $sql = "SELECT * FROM Bricks WHERE GridReference = ?";
             $stmt = $dbc->prepare($sql);
             $stmt->bindParam(1, $gridref);
             $stmt->execute();
-            $result2 = $stmt->fetch();
+            $result2 = $stmt->fetch(PDO::FETCH_ASSOC);
         }
+
         if (empty($errors) && !empty($name)){
-			$namelike = "%$name%";
-            #require_once ('../pdo_connect.php');
+            $namelike = "%$name%";
             $sql = "SELECT * FROM Bricks WHERE Name LIKE ?";
             $stmt = $dbc->prepare($sql);
             $stmt->bindParam(1, $namelike);
             $stmt->execute();
-            $result = $stmt->fetchAll();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-		if (empty($errors) && empty($result2) && empty($result)) {
+
+        if (empty($errors) && empty($result2) && empty($result)) {
             $searchError = "Username Does Not Exist";
         }
     }
@@ -86,19 +89,19 @@
 		</div>
 	
 		<div class="filter foundBrick">
-			<p>The brick you searched for is: </p>
-                <?php 
-					if (!empty($result2)) {
-						echo "<p>{$result2['Name']} {$result2['GridReference']} {$result2['Location']}</p>";
-					} elseif (!empty($result)) {
-						foreach ($result as $row) {
-							echo "<p>{$row['Name']} {$row['GridReference']} {$row['Location']}</p>";
-						}
-						#echo "<p>{$result['Name']} {$result['GridReference']} {$result['Location']}</p>";
-					} 
-				?>
-            
-		</div>
+    <?php if (!empty($result2) || !empty($result)) : ?>
+        <p>The brick you searched for is:</p>
+        <?php 
+            if (!empty($result2)) {
+                echo "<p>{$result2['Name']} {$result2['GridReference']} {$result2['Location']}</p>";
+            } elseif (!empty($result)) {
+                foreach ($result as $row) {
+                    echo "<p>{$row['Name']} {$row['GridReference']} {$row['Location']}</p>";
+                }
+            }
+        ?>
+    <?php endif; ?>
+</div>
 		
 		<button type="submit" name="send" class="search-btn">SEARCH</button>
 		<button type="reset" class="search-btn">RESET</button>
