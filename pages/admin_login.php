@@ -25,8 +25,9 @@
                 $role=$result['Role'];
                 if ($password == $pw) { //passwords match
                     session_start();
+                    $_SESSION["role"] = $role;
                     if ($role == "Admin"){
-                        header("Location: admin_home.html");	
+                        header("Location: admin_home.php");	
                         exit;
                     }
                     if ($role == "Data Entry"){
