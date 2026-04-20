@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "Admin") {
+	die("Error: You need to login as an admin to access this page.");
+}
+
 require_once '../pdo_connect.php';
 
 $error = "";

@@ -31,7 +31,7 @@
                         exit;
                     }
                     if ($role == "Data Entry"){
-                        header("Location: data_entry_home.html");	
+                        header("Location: data_entry_home.php");	
                         exit;
                     }
                 }
