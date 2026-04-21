@@ -107,7 +107,7 @@ $success2 = "Entry Updated";
 		
 		<div class="card">
 			
-			<div class="divider"></div>
+			<!--<div class="divider"></div>--> <!--Take divider off to take line off update page-->
 			<?php //adding error and success KM
     if (!empty($errors['gridReference'])) echo "<p style='color: red;'>{$errors['gridReference']}</p>";
     if (!empty($errors['notclaimed'])) echo "<p style='color: red;'>{$errors['notclaimed']}</p>";
