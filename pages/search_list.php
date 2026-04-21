@@ -1,8 +1,10 @@
 <?php
     session_start();
-	if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "Admin" || $_SESSION["role"] !== "Data Entry") {
-		die("Error: You need to login to access this page.");
-	}
+    $allowed_roles = ["Admin", "Data Entry"];
+    if (!isset($_SESSION["role"]) || !in_array($_SESSION["role"], $allowed_roles)) {
+        die("Error: You need to login to access this page.");
+    }
+
 
     $errors = array();
     $result = [];
