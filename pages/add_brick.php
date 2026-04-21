@@ -71,7 +71,15 @@
 
 <body>
 	<div class="header">
-		<h1><a href="../index.html">SB Vets Memorial Management System</a></h1>
+    <?php
+        if ($_SESSION["role"] === "Admin") {// If user is admin take them to admin home
+            echo '<h1><a href="admin_home.php">SB Vets Memorial Management System</a></h1>';
+        } else {
+            // If user is data entry take them to data entry home
+            echo '<h1><a href="data_entry_home.php">SB Vets Memorial Management System</a></h1>';
+        }
+        ?>
+        <h4><a href="session_logout.php">Logout</a></h4>
 	</div>
 	
 	<h2>Add Brick Entry</h2>
