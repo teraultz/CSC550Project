@@ -15,6 +15,7 @@
 <body>
 	<div class="header">
 		<h1><a href="../index.html">SB Vets Memorial Management System</a></h1>
+		<h2><a href="session_logout.php">Logout</a></h2>
 	</div>
 	
 	<div class="buttons">
