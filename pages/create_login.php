@@ -45,7 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 	<div class="header">
-		<h1><a href="../index.html">SB Vets Memorial Management System</a></h1>
+		<h1><a href="admin_home.php">SB Vets Memorial Management System</a></h1>
+		<h4><a href="session_logout.php">Logout</a></h4>
 	</div>
 	
 	<div class="create">
