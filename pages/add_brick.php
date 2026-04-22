@@ -81,6 +81,11 @@
         ?>
         <h4><a href="session_logout.php">Logout</a></h4>
 	</div>
+
+	<!---Added Return button--->
+	<div class="back">
+		<button onclick="history.back()">← Return to previous page</button>
+	</div>
 	
 	<h2>Add Brick Entry</h2>
 	
