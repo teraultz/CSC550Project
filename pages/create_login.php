@@ -48,6 +48,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<h1><a href="admin_home.php">SB Vets Memorial Management System</a></h1>
 		<h4><a href="session_logout.php">Logout</a></h4>
 	</div>
+
+	<!---Added Return button--->
+	<div class="back">
+		<button onclick="history.back()">← Return to previous page</button>
+	</div>
 	
 	<div class="create">
 		<h2>Create Login Credentials</h2>
