@@ -28,5 +28,6 @@
 		<a href="update_brick.php" class="btn">Update Brick List</a>
 		
 		<a href="search_list.php" class="btn">View/Search Brick List</a>
+	</div>
 </body>
 </html>
