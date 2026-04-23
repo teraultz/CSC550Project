@@ -198,7 +198,7 @@ form > :nth-last-child(2), form > :last-child {
 	align-items: center;
 	text-align: center;
 	width: 400px;
-	height: 195px;
+	height: 230px;
 	padding: 15px;
 	border: 2px solid black;
 }
