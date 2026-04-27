@@ -87,11 +87,14 @@ $success2 = "Entry Updated";
 	<title>SB Vets MMS</title>
 	<link rel="stylesheet" href="../styles/main.css">
 	<script>
-	document.getElementById('deleteForm').addEventListener('submit', function(event) {
-    const confirmed = confirm("Are you sure you want to delete this brick? This cannot be undone.");
-    if (!confirmed) {
-        event.preventDefault();
-    }
+window.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('deleteForm').addEventListener('submit', function(event) {
+        const confirmed = confirm("Are you sure you want to delete this brick? This cannot be undone.");
+
+        if (!confirmed) {
+            event.preventDefault();
+        }
+    });
 });
 </script>
 </head>
