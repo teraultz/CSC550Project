@@ -59,13 +59,12 @@
 	<div class="login">
 		<h2>Data Entry Log In</h2>
 		
-		<form method="post" action="admin_login.php">
-            <?php 
-                if ($errors) echo "<h2 class=\"warning\">Please fix the item(s) indicated.</h2>";
-            	if ($errors['username']) echo "<h2 class=\"warning\">{$errors['username']}</h2>"; 
-                if ($errors['pw']) echo "<h2 class=\"warning\">{$errors['pw']}</h2>";    
-				if ($errors['wrong_pw']) echo "<h2 class=\"warning\">{$errors['wrong_pw']}</h2>"; 
-            ?>
+		<form method="post" action="dataEntry_login.php">
+           <?php
+if ($errors['no_username'] || $errors['wrong_pw']) {
+    echo "<h2 style='color:red;'>Invalid username or password.</h2>";
+}
+?>
             <input name="username" id="username" type="text" class="account" placeholder="Username: ">
 			<br>
 			<input name="password" id="pw" type="password" class="account" placeholder="Password: ">
