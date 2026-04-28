@@ -57,7 +57,7 @@
 	</div>
 	
 	<div class="login">
-		<h2>Data Entry Log In</h2>
+		<h2>Log In</h2>
 		
 		<form method="post" action="dataEntry_login.php">
            <?php
